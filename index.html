@@ -8,33 +8,109 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="nav">
-    <span class="logo">Tatva<span>360</span></span>
-    <a class="btn small" href="#waitlist">Join waitlist</a>
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <div class="promo" role="note">
+    Launch offer: <strong>40% off</strong> every plan — ends in <span id="countdown">--:--:--</span>
+  </div>
+
+  <header class="nav glass">
+    <a class="logo" href="#top">Tatva<span>360</span></a>
+    <nav class="links" aria-label="Main">
+      <a href="#tools">Tools</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#waitlist">Waitlist</a>
+    </nav>
+    <div class="nav-actions">
+      <label class="search"><span class="sr">Search tools</span>
+        <input id="search" type="search" placeholder="Search tools…" autocomplete="off">
+      </label>
+      <button class="cart-btn" id="cartOpen" aria-label="Open cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        <span class="badge" id="cartCount">0</span>
+      </button>
+    </div>
   </header>
 
-  <main>
+  <main id="top">
     <section class="hero">
-      <h1>AI content for YouTube &amp; Instagram, 360° covered.</h1>
-      <p>Ideas, scripts, captions and repurposed clips — all from one place.</p>
-      <a class="btn" href="#waitlist">Get early access</a>
+      <div class="hero-copy">
+        <span class="pill">New · AI studio for creators</span>
+        <h1>Create <em>YouTube &amp; Instagram</em> content at 360° speed.</h1>
+        <p>Ideas, scripts, thumbnails, captions and repurposed clips — shop the tools you need and ship content daily.</p>
+        <div class="cta">
+          <a class="btn" href="#tools">Shop AI tools</a>
+          <a class="btn ghost" href="#pricing">See plans</a>
+        </div>
+        <ul class="stats">
+          <li><strong data-count="12000">0</strong><span>creators</span></li>
+          <li><strong data-count="480">0</strong><span>K videos planned</span></li>
+          <li><strong data-count="49">0</strong><span>/5 rating</span></li>
+        </ul>
+      </div>
+      <div class="hero-card glass" aria-hidden="true">
+        <div class="hc-head"><span class="dot live"></span> Live activity</div>
+        <ul id="ticker"></ul>
+      </div>
     </section>
 
-    <section class="features">
-      <article><h3>Idea engine</h3><p>Trending topics and video ideas tailored to your niche.</p></article>
-      <article><h3>Script &amp; caption writer</h3><p>Hooks, scripts, captions and hashtags in your voice.</p></article>
-      <article><h3>Repurpose</h3><p>Turn one YouTube video into Shorts, Reels and posts.</p></article>
+    <section id="tools" class="section">
+      <div class="section-head">
+        <h2>AI tools</h2>
+        <div class="chips" role="tablist" aria-label="Categories">
+          <button class="chip active" data-cat="all">All</button>
+          <button class="chip" data-cat="youtube">YouTube</button>
+          <button class="chip" data-cat="instagram">Instagram</button>
+          <button class="chip" data-cat="growth">Growth</button>
+        </div>
+      </div>
+      <div class="grid" id="products"></div>
+      <p class="empty" id="empty" hidden>No tools match your search.</p>
     </section>
 
-    <section id="waitlist" class="waitlist">
-      <h2>Join the waitlist</h2>
+    <section id="pricing" class="section">
+      <div class="section-head"><h2>Simple pricing</h2><p class="muted">Cancel anytime. Prices shown with launch discount.</p></div>
+      <div class="plans" id="plans"></div>
+    </section>
+
+    <section id="reviews" class="section">
+      <div class="section-head"><h2>Loved by creators</h2></div>
+      <div class="reviews">
+        <figure class="glass"><blockquote>“I plan a month of Reels in an afternoon now.”</blockquote><figcaption>— Aarav, lifestyle creator</figcaption></figure>
+        <figure class="glass"><blockquote>“Scripts sound like me, not a robot. Views are up 3×.”</blockquote><figcaption>— Meera, tech YouTuber</figcaption></figure>
+        <figure class="glass"><blockquote>“Repurposing long videos into Shorts saves me hours.”</blockquote><figcaption>— Kabir, finance channel</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="waitlist" class="section waitlist glass">
+      <h2>Get early access</h2>
+      <p class="muted">Be first to know when checkout opens.</p>
       <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <input type="email" name="email" placeholder="you@example.com" required>
+        <input type="email" name="email" placeholder="you@example.com" required aria-label="Email">
         <button class="btn" type="submit">Notify me</button>
       </form>
     </section>
   </main>
 
-  <footer>© 2026 Tatva360</footer>
+  <footer>
+    <span class="logo">Tatva<span>360</span></span>
+    <span>© 2026 Tatva360 · AI content for creators</span>
+  </footer>
+
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="drawer glass" id="drawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer-head"><h3>Your cart</h3><button class="icon-btn" id="cartClose" aria-label="Close cart">✕</button></div>
+    <ul id="cartItems"></ul>
+    <p class="empty" id="cartEmpty">Your cart is empty.</p>
+    <div class="drawer-foot">
+      <div class="total"><span>Subtotal</span><strong id="cartTotal">$0</strong></div>
+      <button class="btn block" id="checkout">Checkout</button>
+      <small class="muted">Checkout opens soon — join the waitlist to be notified.</small>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
 </body>
 </html>
